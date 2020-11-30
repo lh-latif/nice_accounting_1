@@ -1,4 +1,8 @@
 # Nice Accounting
+Screenshoot app (with example data):
+
+![screenshot_1](https://raw.githubusercontent.com/lh-latif/nice_accounting_1/master/images/Screenshot_1606722524.png)
+![screenshot_2](https://raw.githubusercontent.com/lh-latif/nice_accounting_1/master/images/Screenshot_1606722814.png)
 
 Aplikasi Android sederhana yang dibuat menggunakan React Native, Javascript, dan Java.
 Menggunakan media penyimpanan SQLite pada android dan Room Framework (androidx).
@@ -10,15 +14,15 @@ Menggunakan media penyimpanan SQLite pada android dan Room Framework (androidx).
 - [x]  Menambah notebook baru
 - [x]  Menambah entry baru
 - [ ]  Mengganti nama notebook
-- [ ]  Menghapus notebook
+- [x]  Menghapus notebook
 - [ ]  Mengedit entry terakhir
 - [ ]  Menghapus entry
 - [ ]  Keamanan PIN
 
 # Todo
 
-  - Hapus Note
   - Ganti nama dan catatan Note
+  - Hapus entry terakhir
 
 
 
