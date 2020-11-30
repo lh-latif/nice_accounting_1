@@ -50,20 +50,22 @@ export default class NewNotebookView extends React.Component {
         </ViewHeader>
         <View>
           <ScrollView>
-            <Text>Name</Text>
-            <TextInput
-              value={this.state.name}
-              onChangeText={this.onChange}
-            />
-            <Text>Note</Text>
-            <TextInput
-              value={this.state.note}
-              onChangeText={this.noteOnChange}
-            />
-            <Button
-              title="Tambah"
-              onPress={this.onPress}
-            />
+            <View style={styles.formContainer}>
+              <Text>Name</Text>
+              <TextInput
+                value={this.state.name}
+                onChangeText={this.onChange}
+              />
+              <Text>Note</Text>
+              <TextInput
+                value={this.state.note}
+                onChangeText={this.noteOnChange}
+              />
+              <Button
+                title="Tambah"
+                onPress={this.onPress}
+              />
+            </View>
           </ScrollView>
         </View>
       </>
@@ -72,3 +74,15 @@ export default class NewNotebookView extends React.Component {
 
 
 }
+
+
+const styles = {
+  formContainer: {
+    marginHorizontal: 20,
+    marginTop: 20,
+    backgroundColor: "white",
+    borderRadius: 10,
+    paddingVertical: 20,
+    padding: 10
+  }
+};
