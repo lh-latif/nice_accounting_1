@@ -1,6 +1,6 @@
 # Nice Accounting
 
-Aplikasi Android sederhana yang dibuat menggunakan React Native dan Javascript.
+Aplikasi Android sederhana yang dibuat menggunakan React Native, Javascript, dan Java.
 Menggunakan media penyimpanan SQLite pada android.
 
 

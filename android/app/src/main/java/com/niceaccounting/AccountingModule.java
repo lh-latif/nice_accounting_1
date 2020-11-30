@@ -19,8 +19,6 @@ import javax.json.stream.JsonParser;
 import javax.json.JsonObject;
 import java.util.Iterator;
 import java.io.StringReader;
-import android.util.JsonReader;
-import java.io.IOException;
 
 public class AccountingModule extends ReactContextBaseJavaModule {
     private static ReactApplicationContext reactContext;
