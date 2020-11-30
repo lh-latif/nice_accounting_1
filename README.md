@@ -1,7 +1,7 @@
 # Nice Accounting
 
 Aplikasi Android sederhana yang dibuat menggunakan React Native, Javascript, dan Java.
-Menggunakan media penyimpanan SQLite pada android.
+Menggunakan media penyimpanan SQLite pada android dan Room Framework (androidx).
 
 
 # Features
