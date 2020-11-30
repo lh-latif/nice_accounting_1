@@ -30,16 +30,6 @@ public class AccountingModule extends ReactContextBaseJavaModule {
         return "AccountingModule";
     }
 
-    // @ReactMethod
-    // public String helloWorld(String text) {
-    //     return text;
-    // }
-    //
-    // @ReactMethod
-    // public void getInt(Promise promise) {
-    //     promise.resolve(100);
-    // }
-
     @ReactMethod
     public void addNotebook(String name, String note, Promise promise) {
         try {
@@ -68,6 +58,56 @@ public class AccountingModule extends ReactContextBaseJavaModule {
         } catch(Exception e) {
             promise.reject(e.getMessage());
         }
+    }
+
+    @ReactMethod
+    public void editNotebook(String jsonString, Promise promise) {
+        try {
+            final JsonParser parser = Json.createParser(new StringReader(jsonString));
+            final JsonParser.Event ev = parser.next();
+            JsonObject obj;
+            if (ev == JsonParser.Event.START_OBJECT) {
+                obj = parser.getObject();
+            } else {
+                throw new Exception("Invalid json!");
+            }
+
+            Notebook note = db.notebookDao().getNotebook(obj.getInt("id"));
+            if (note == null) {
+                throw new Exception("Not Found!");
+            }
+            int numRows = db.notebookDao().editNotebook(
+                note.id,
+                obj.getString("name", note.name),
+                obj.getString("note", note.note)
+            );
+            if (numRows == 1) {
+                promise.resolve(true);
+            } else {
+                throw new Exception("Failed!");
+            }
+
+        } catch (Exception err) {
+            promise.reject(err.getMessage());
+        }
+
+    }
+
+    @ReactMethod
+    public void deleteNotebook(int id, Promise promise) {
+        try {
+            Notebook nb = db.notebookDao().getNotebook(id);
+            int rowsNum = db.notebookDao().deleteNotebook(nb);
+            if (rowsNum == 1) {
+                promise.resolve(true);
+            } else {
+                promise.reject("error, not deleted");
+            }
+
+        } catch(Exception err) {
+            promise.reject(err.getMessage());
+        }
+
     }
 
     @ReactMethod
@@ -106,6 +146,7 @@ public class AccountingModule extends ReactContextBaseJavaModule {
                     .add("type", entry.type)
                     .add("value", entry.value)
                     .add("note", entry.note)
+                    .add("inserted_at", entry.inserted_at)
                     .build()
                 );
             }
@@ -118,7 +159,6 @@ public class AccountingModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void addNotebookEntry(String jsonString, Promise promise) {
         try {
-            // jsonReaderMethod(jsonString, promise);
             final JsonParser parser = Json.createParser(new StringReader(jsonString));
             parser.next();
             final JsonObject entryObject = parser.getObject();
@@ -154,21 +194,6 @@ public class AccountingModule extends ReactContextBaseJavaModule {
         }
     }
 
-    protected void jsonReaderMethod(String jsonString, Promise promise) throws IOException {
-        JsonReader jr = new JsonReader(new StringReader(jsonString));
-        jr.beginObject();
-        String name;
-        while(jr.hasNext()) {
-            name = jr.nextName();
-            if (name.equals("type")) {
-                promise.resolve(jr.nextString().equals("in"));
-                break;
-            } else {
-                jr.skipValue();
-            }
-        }
-    }
-
     @ReactMethod
     public void getStatistic(int id, Promise promise) {
         try {
@@ -186,7 +211,6 @@ public class AccountingModule extends ReactContextBaseJavaModule {
 
     }
 
-    // public void addEntry(int id, )
 
     AccountingModule(ReactApplicationContext context) {
         super(context);

@@ -9,13 +9,6 @@ import {
 } from "react-native";
 import ViewHeader from "../components/ViewHeader.js";
 import FaButton from "../components/FaButton.js";
-// import {
-//   get_notebook,
-//   add_notebook_entry
-// } from "../accounting.js";
-// import {
-//   get_list_record
-// } from "../notebook.js";
 import Icon from "react-native-vector-icons/MaterialIcons";
 // console.log(Icon);
 
@@ -97,6 +90,10 @@ function typeIcon(type) {
   }
 }
 
+function getDateTime(date) {
+  return (date.getMonth()+1)+"-"+date.getDate()+"-"+ date.getFullYear();
+}
+
 export default class NotebookView extends React.Component {
   constructor(props) {
     super(props);
@@ -108,6 +105,8 @@ export default class NotebookView extends React.Component {
       this.getNotebookEntry();
       this.hasSetup = true;
     });
+
+    this.deleteNotebook = this.deleteNotebook.bind(this);
   }
 
   goBack() {
@@ -128,6 +127,8 @@ export default class NotebookView extends React.Component {
       });
   }
 
+
+
   getNotebookEntry() {
     // this.getNotebookStats();
     // console.log(this.props.route.params);
@@ -136,18 +137,27 @@ export default class NotebookView extends React.Component {
         // console.warning(res);
         this.setState({
           entry: JSON.parse(res)
+            .map((item) => {
+              const date = new Date(item.inserted_at);
+              item.inserted_at = date;
+              return item;
+            })
         });
       });
-    // get_list_record(this.props.route.params)
-    //   .then((list_entry) => {
-    //     console.log(list_entry);
-    //     this.setState({
-    //       entry: list_entry
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+  }
+
+  deleteNotebook() {
+
+    NativeModules.AccountingModule.deleteNotebook(this.props.route.params.id)
+    .then((res) => {
+      if (res) {
+        // console.log("berhasil hapus notebook");
+        this.goBack();
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   componentDidMount() {
@@ -188,7 +198,7 @@ export default class NotebookView extends React.Component {
                     <Text>Rp {item.value}</Text>
                   </View>
                   <Text>
-                    {item.inserted_at}
+                    {getDateTime(item.inserted_at)}
                   </Text>
                 </View>
                 {
@@ -207,9 +217,9 @@ export default class NotebookView extends React.Component {
         <View style={styles.fillerBottom}/>
         </ScrollView>
         <View style={styles.bottomMenu}>
-          <View>
+          <TouchWF onPress={this.deleteNotebook}>
             <Text>Hapus Note</Text>
-          </View>
+          </TouchWF>
           <View>
             <Text>Ubah Nama</Text>
           </View>

@@ -35,9 +35,13 @@ public abstract class AccountingDao {
     @Transaction
     public int addNotebookEntry(NotebookDao noteDao, EntryDao entryDao, Notebook notebook, Entry entry) {
         Statistic statistic = getStatistic(entry.notebook_id);
-        int id = entryDao.addEntry(entry).intValue();
+        Long id = entryDao.addEntry(
+            entry.notebook_id, entry.value,
+            entry.type, entry.note
+        );
+        // int idInt = id.intValue();
         noteDao.updateAmount(notebook.id, notebook.amount);
-        updateStatistic(id, statistic.id);
-        return id;
+        updateStatistic(id.intValue(), statistic.id);
+        return id.intValue();
     }
 }

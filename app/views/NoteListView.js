@@ -132,10 +132,6 @@ export default class NoteListView extends React.Component {
                     <Text style={styles.noteTitle}>{item.name}</Text>
                     <Text style={styles.noteAmount}>Rp {item.amount}</Text>
                   </View>
-                  <View>
-                    <Text>In or Out Rp</Text>
-                    <Text>01-01-20</Text>
-                  </View>
                 </View>
               </TouchWF>
             ))

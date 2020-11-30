@@ -28,4 +28,7 @@ public class Entry {
     @ColumnInfo(name = "note")
     public String note;
 
+    @ColumnInfo(name = "inserted_at")
+    public String inserted_at;
+
 }

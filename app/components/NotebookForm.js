@@ -7,40 +7,35 @@ import {
   TextInput,
   View
 } from "react-native";
-import ViewHeader from "../components/ViewHeader.js";
-import {add_notebook} from "../accounting.js";
-const AccountingModule = NativeModules.AccountingModule;
 
-export default class NewNotebookView extends React.Component {
+export default class NotebookForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
       note: ""
     };
-    this.onChange = (name) => {
+
+    this.nameOnChange = (name) => {
       this.setState({name: name});
     };
-    this.onSubmit = this.onSubmit.bind(this);
+
+    this.onPress = (ev) => {
+      AccountingModule.addNotebook(
+        this.state.name,
+        this.state.note
+      ).then((id) => {
+        console.log("added notebook id: ",id)
+        // this.props.navigation.navigate("NoteList");
+        // this.props.onBack();
+      })
+      .catch(((err) => console.error(err)));
+    }
     this.noteOnChange = this.noteOnChange.bind(this);
   }
 
   noteOnChange(note) {
     this.setState({note: note});
-  }
-
-  onSubmit() {
-    AccountingModule.addNotebook(
-      this.state.name,
-      this.state.note
-    )
-    .then((id) => {
-      console.log("added notebook id: ",id);
-      this.props.navigation.navigate("NoteList");
-    })
-    .catch((err) => {
-      console.error(err)
-    });
   }
 
   render() {
@@ -64,7 +59,7 @@ export default class NewNotebookView extends React.Component {
               />
               <Button
                 title="Tambah"
-                onPress={this.onSubmit}
+                onPress={this.onPress}
               />
             </View>
           </ScrollView>
