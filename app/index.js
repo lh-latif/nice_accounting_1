@@ -15,12 +15,9 @@ import NotebookView from "./views/NotebookView.js";
 import NewEntryView from "./views/NewEntryView.js";
 
 const AccountingModel = NativeModules.AccountingModule;
-console.log(AccountingModel);
-
-
-
+// console.log(AccountingModel);
 // AccountingModel.getInt().then(number => console.log(number));
-AccountingModel.listNotebook().then(any => console.log("listNotebook",any));
+// AccountingModel.listNotebook().then(any => console.log("listNotebook",any));
 let MainView = null;
 const Stack = createStackNavigator();
 

@@ -46,7 +46,7 @@ export default class NewEntryView extends React.Component {
   }
 
   onSubmit() {
-    console.log(this.props.route.params);
+    // console.log(this.props.route.params);
     const note = this.props.route.params.notebook;
     var type = this.state.type;
     const data = {
@@ -57,10 +57,15 @@ export default class NewEntryView extends React.Component {
     };
 
     const stringify = JSON.stringify(data);
-    console.log(stringify);
+    // console.log(stringify);
     NativeModules.AccountingModule.addNotebookEntry(stringify)
-      .then((res) => { console.log(res)})
-      .catch((err) => {console.error(err);});
+      .then((res) => {
+        // console.log(res);
+        this.props.navigation.goBack();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   render() {

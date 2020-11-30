@@ -25,7 +25,7 @@ export default class NotebookForm extends React.Component {
         this.state.name,
         this.state.note
       ).then((id) => {
-        console.log("added notebook id: ",id)
+        // console.log("added notebook id: ",id)
         // this.props.navigation.navigate("NoteList");
         // this.props.onBack();
       })

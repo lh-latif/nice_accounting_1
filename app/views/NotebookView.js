@@ -101,7 +101,7 @@ export default class NotebookView extends React.Component {
       entry: []
     };
     this.onFocusUnsubs = this.props.navigation.addListener("focus",() => {
-      console.log("focus");
+      // console.log("focus");
       this.getNotebookEntry();
       this.hasSetup = true;
     });
@@ -120,7 +120,7 @@ export default class NotebookView extends React.Component {
   getNotebookStats() {
     NativeModules.AccountingModule.getStatistic(this.props.route.params.id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => {
         console.error(err);

@@ -35,7 +35,7 @@ export default class NewNotebookView extends React.Component {
       this.state.note
     )
     .then((id) => {
-      console.log("added notebook id: ",id);
+      // console.log("added notebook id: ",id);
       this.props.navigation.navigate("NoteList");
     })
     .catch((err) => {
