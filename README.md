@@ -17,8 +17,8 @@ Menggunakan media penyimpanan SQLite pada android.
 
 # Todo
 
-  Perbaiki layout input untuk notebook baru
-  Perbaiki design input untuk entry baru
+  - Hapus Note
+  - Ganti nama dan catatan Note
 
 
 
